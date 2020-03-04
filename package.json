@@ -1,5 +1,6 @@
 {
 	"publisher": "daniellimws",
+	"repository": "https://github.com/daniellimws/viv",
 	"name": "viv",
 	"displayName": "viv",
 	"description": "Vivado in VSCode",
