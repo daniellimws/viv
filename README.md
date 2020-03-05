@@ -1,7 +1,7 @@
 VSCode extension for interacting with Vivado installed on a vagrant machine. Assumes the setup described [here](https://github.com/daniellimws/vivado-mac).
 
 ### Installation
-Download the [package](https://github.com/daniellimws/viv/releases/download/0.0.1/viv-0.0.1.vsix) from the releases. Not published onto the VSCode marketplace because it seems like a lot of work. Then run the following command to install.
+Download the [package](https://github.com/daniellimws/viv/releases/download/0.1.1/viv-0.1.1.vsix) from the releases. Not published onto the VSCode marketplace because it seems like a lot of work. Then run the following command to install.
 
 ```sh
 code --install-extension viv.vsix
