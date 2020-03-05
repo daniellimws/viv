@@ -25,10 +25,10 @@ export function activate(context: vscode.ExtensionContext) {
 	}));
 
 	context.subscriptions.push(vscode.commands.registerCommand('viv.add_design', async () => {
-		ensureInit();
-
 		let folderName = vscode.workspace.name;
 		let moduleName = await vscode.window.showInputBox({prompt: "Design module name"});
+
+		ensureInit();
 
 		terminal.show();
 		terminal.sendText("cp add_design.tcl current.tcl");
@@ -41,11 +41,11 @@ export function activate(context: vscode.ExtensionContext) {
 	}));
 
 	context.subscriptions.push(vscode.commands.registerCommand('viv.rename_design', async () => {
-		ensureInit();
-
 		let folderName = vscode.workspace.name;
 		let oldModuleName = await vscode.window.showInputBox({prompt: "Old module name"});
 		let newModuleName = await vscode.window.showInputBox({prompt: "New module name"});
+
+		ensureInit();
 
 		terminal.show();
 		terminal.sendText("cp rename_design.tcl current.tcl");
@@ -59,10 +59,10 @@ export function activate(context: vscode.ExtensionContext) {
 	}));
 
 	context.subscriptions.push(vscode.commands.registerCommand('viv.set_design_top', async () => {
-		ensureInit();
-
 		let folderName = vscode.workspace.name;
 		let moduleName = await vscode.window.showInputBox({prompt: "Design module name"});
+
+		ensureInit();
 
 		terminal.show();
 		terminal.sendText("cp set_design_top.tcl current.tcl");
@@ -75,10 +75,10 @@ export function activate(context: vscode.ExtensionContext) {
 	}));
 
 	context.subscriptions.push(vscode.commands.registerCommand('viv.schematic', async () => {
-		ensureInit();
-
 		let folderName = vscode.workspace.name;
 		let moduleName = await vscode.window.showInputBox({prompt: "Design module name"});
+
+		ensureInit();
 
 		terminal.show();
 		terminal.sendText("cp schematic.tcl current.tcl");
@@ -91,10 +91,10 @@ export function activate(context: vscode.ExtensionContext) {
 	}));
 
 	context.subscriptions.push(vscode.commands.registerCommand('viv.add_sim', async () => {
-		ensureInit();
-
 		let folderName = vscode.workspace.name;
 		let moduleName = await vscode.window.showInputBox({prompt: "Simulation module name"});
+
+		ensureInit();
 
 		terminal.show();
 		terminal.sendText("cp add_sim.tcl current.tcl");
@@ -107,10 +107,10 @@ export function activate(context: vscode.ExtensionContext) {
 	}));
 
 	context.subscriptions.push(vscode.commands.registerCommand('viv.set_sim_top', async () => {
-		ensureInit();
-
 		let folderName = vscode.workspace.name;
 		let moduleName = await vscode.window.showInputBox({prompt: "Simulation module name"});
+
+		ensureInit();
 
 		terminal.show();
 		terminal.sendText("cp set_sim_top.tcl current.tcl");
@@ -123,10 +123,10 @@ export function activate(context: vscode.ExtensionContext) {
 	}));
 
 	context.subscriptions.push(vscode.commands.registerCommand('viv.simulation', async () => {
-		ensureInit();
-
 		let folderName = vscode.workspace.name;
 		let moduleName = await vscode.window.showInputBox({prompt: "Simulation module name"});
+
+		ensureInit();
 
 		terminal.show();
 		terminal.sendText("cp simulation.tcl current.tcl");
@@ -146,10 +146,10 @@ export function activate(context: vscode.ExtensionContext) {
 	}));
 
 	context.subscriptions.push(vscode.commands.registerCommand('viv.bitstream', async () => {
-		ensureInit();
-
 		let folderName = vscode.workspace.name;
 		let moduleName = await vscode.window.showInputBox({prompt: "Design module name"});
+
+		ensureInit();
 
 		terminal.show();
 		terminal.sendText("cp bitstream.tcl current.tcl");
@@ -163,10 +163,10 @@ export function activate(context: vscode.ExtensionContext) {
 	}));
 
 	context.subscriptions.push(vscode.commands.registerCommand('viv.program', async () => {
-		ensureInit();
-
 		let folderName = vscode.workspace.name;
 		let moduleName = await vscode.window.showInputBox({prompt: "Design module name"});
+
+		ensureInit();
 
 		terminal.show();
 		terminal.sendText("cp program.tcl current.tcl");
