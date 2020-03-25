@@ -29,7 +29,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(vscode.commands.registerCommand('viv.add_design', async () => {
 		let folderName = vscode.workspace.name;
-		designModuleName = await vscode.window.showInputBox({ prompt: "Design module name", placeHolder: designModuleName }) || '';
+		designModuleName = await vscode.window.showInputBox({ prompt: "Design module name", value: designModuleName }) || '';
 
 		if (designModuleName === '') { return; }
 
@@ -67,7 +67,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(vscode.commands.registerCommand('viv.set_design_top', async () => {
 		let folderName = vscode.workspace.name;
-		designModuleName = await vscode.window.showInputBox({ prompt: "Design module name", placeHolder: designModuleName }) || '';
+		designModuleName = await vscode.window.showInputBox({ prompt: "Design module name", value: designModuleName }) || '';
 
 		if (designModuleName === '') { return; }
 
@@ -85,7 +85,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(vscode.commands.registerCommand('viv.schematic', async () => {
 		let folderName = vscode.workspace.name;
-		designModuleName = await vscode.window.showInputBox({ prompt: "Design module name", placeHolder: designModuleName }) || '';
+		designModuleName = await vscode.window.showInputBox({ prompt: "Design module name", value: designModuleName }) || '';
 
 		if (designModuleName === '') { return; }
 
@@ -121,7 +121,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(vscode.commands.registerCommand('viv.set_sim_top', async () => {
 		let folderName = vscode.workspace.name;
-		simModuleName = await vscode.window.showInputBox({ prompt: "Simulation module name", placeHolder: simModuleName }) || '';
+		simModuleName = await vscode.window.showInputBox({ prompt: "Simulation module name", value: simModuleName }) || '';
 
 		if (simModuleName === '') { return; }
 
@@ -139,7 +139,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(vscode.commands.registerCommand('viv.simulation', async () => {
 		let folderName = vscode.workspace.name;
-		simModuleName = await vscode.window.showInputBox({ prompt: "Simulation module name", placeHolder: simModuleName }) || '';
+		simModuleName = await vscode.window.showInputBox({ prompt: "Simulation module name", value: simModuleName }) || '';
 
 		if (simModuleName === '') { return; }
 
@@ -164,7 +164,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(vscode.commands.registerCommand('viv.bitstream', async () => {
 		let folderName = vscode.workspace.name;
-		designModuleName = await vscode.window.showInputBox({ prompt: "Design module name", placeHolder: designModuleName }) || '';
+		designModuleName = await vscode.window.showInputBox({ prompt: "Design module name", value: designModuleName }) || '';
 
 		if (designModuleName === '') { return; }
 
@@ -183,7 +183,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(vscode.commands.registerCommand('viv.program', async () => {
 		let folderName = vscode.workspace.name;
-		designModuleName = await vscode.window.showInputBox({ prompt: "Design module name", placeHolder: designModuleName }) || '';
+		designModuleName = await vscode.window.showInputBox({ prompt: "Design module name", value: designModuleName }) || '';
 
 		if (designModuleName === '') { return; }
 
