@@ -5,6 +5,9 @@ var terminal: vscode.Terminal;
 const vivado = "vivado -nolog -nojournal -mode batch -source current.tcl";
 const rm = "rm current.tcl";
 
+var designModuleName: string = "";
+var simModuleName: string = "";
+
 export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(vscode.commands.registerCommand('viv.init', () => {
 		initialize();
@@ -26,24 +29,28 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(vscode.commands.registerCommand('viv.add_design', async () => {
 		let folderName = vscode.workspace.name;
-		let moduleName = await vscode.window.showInputBox({prompt: "Design module name"});
+		designModuleName = await vscode.window.showInputBox({ prompt: "Design module name", placeHolder: designModuleName }) || '';
+
+		if (designModuleName === '') { return; }
 
 		ensureInit();
 
 		terminal.show();
 		terminal.sendText("cp add_design.tcl current.tcl");
 		terminal.sendText(`sed -i 's/$PROJECT_NAME/${folderName}/g' current.tcl`);
-		terminal.sendText(`sed -i 's/$MODULE_NAME/${moduleName}/g' current.tcl`);
+		terminal.sendText(`sed -i 's/$MODULE_NAME/${designModuleName}/g' current.tcl`);
 		terminal.sendText("cat current.tcl");
 		terminal.sendText(vivado);
 		terminal.sendText(rm);
-		vscode.window.showInformationMessage(`Adding design source ${moduleName}.v to project`);
+		vscode.window.showInformationMessage(`Adding design source ${designModuleName}.v to project`);
 	}));
 
 	context.subscriptions.push(vscode.commands.registerCommand('viv.rename_design', async () => {
 		let folderName = vscode.workspace.name;
-		let oldModuleName = await vscode.window.showInputBox({prompt: "Old module name"});
-		let newModuleName = await vscode.window.showInputBox({prompt: "New module name"});
+		let oldModuleName: string = await vscode.window.showInputBox({ prompt: "Old module name" }) || '';
+		let newModuleName: string = await vscode.window.showInputBox({ prompt: "New module name" }) || '';
+
+		if (oldModuleName === '' || newModuleName === '') { return; }
 
 		ensureInit();
 
@@ -60,30 +67,34 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(vscode.commands.registerCommand('viv.set_design_top', async () => {
 		let folderName = vscode.workspace.name;
-		let moduleName = await vscode.window.showInputBox({prompt: "Design module name"});
+		designModuleName = await vscode.window.showInputBox({ prompt: "Design module name", placeHolder: designModuleName }) || '';
+
+		if (designModuleName === '') { return; }
 
 		ensureInit();
 
 		terminal.show();
 		terminal.sendText("cp set_design_top.tcl current.tcl");
 		terminal.sendText(`sed -i 's/$PROJECT_NAME/${folderName}/g' current.tcl`);
-		terminal.sendText(`sed -i 's/$MODULE_NAME/${moduleName}/g' current.tcl`);
+		terminal.sendText(`sed -i 's/$MODULE_NAME/${designModuleName}/g' current.tcl`);
 		terminal.sendText("cat current.tcl");
 		terminal.sendText(vivado);
 		terminal.sendText(rm);
-		vscode.window.showInformationMessage(`Setting ${moduleName} as top`);
+		vscode.window.showInformationMessage(`Setting ${designModuleName} as top`);
 	}));
 
 	context.subscriptions.push(vscode.commands.registerCommand('viv.schematic', async () => {
 		let folderName = vscode.workspace.name;
-		let moduleName = await vscode.window.showInputBox({prompt: "Design module name"});
+		designModuleName = await vscode.window.showInputBox({ prompt: "Design module name", placeHolder: designModuleName }) || '';
+
+		if (designModuleName === '') { return; }
 
 		ensureInit();
 
 		terminal.show();
 		terminal.sendText("cp schematic.tcl current.tcl");
-		terminal.sendText(`sed -i 's/$PROJECT_NAME/${folderName}/g' current.tcl`);
-		terminal.sendText(`sed -i 's/$MODULE_NAME/${moduleName}/g' current.tcl`);
+		terminal.sendText(`sed -i 's/$PROJECT_NAME/${designModuleName}/g' current.tcl`);
+		terminal.sendText(`sed -i 's/$MODULE_NAME/${designModuleName}/g' current.tcl`);
 		terminal.sendText("cat current.tcl");
 		terminal.sendText(`xvfb-run ${vivado}`);
 		terminal.sendText(rm);
@@ -92,53 +103,59 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(vscode.commands.registerCommand('viv.add_sim', async () => {
 		let folderName = vscode.workspace.name;
-		let moduleName = await vscode.window.showInputBox({prompt: "Simulation module name"});
+		simModuleName = await vscode.window.showInputBox({ prompt: "Simulation module name" }) || '';
+
+		if (simModuleName === '') { return; }
 
 		ensureInit();
 
 		terminal.show();
 		terminal.sendText("cp add_sim.tcl current.tcl");
 		terminal.sendText(`sed -i 's/$PROJECT_NAME/${folderName}/g' current.tcl`);
-		terminal.sendText(`sed -i 's/$SIM_NAME/${moduleName}/g' current.tcl`);
+		terminal.sendText(`sed -i 's/$SIM_NAME/${simModuleName}/g' current.tcl`);
 		terminal.sendText("cat current.tcl");
 		terminal.sendText(vivado);
 		terminal.sendText(rm);
-		vscode.window.showInformationMessage(`Adding simulation source ${moduleName}.v to project`);
+		vscode.window.showInformationMessage(`Adding simulation source ${simModuleName}.v to project`);
 	}));
 
 	context.subscriptions.push(vscode.commands.registerCommand('viv.set_sim_top', async () => {
 		let folderName = vscode.workspace.name;
-		let moduleName = await vscode.window.showInputBox({prompt: "Simulation module name"});
+		simModuleName = await vscode.window.showInputBox({ prompt: "Simulation module name", placeHolder: simModuleName }) || '';
+
+		if (simModuleName === '') { return; }
 
 		ensureInit();
 
 		terminal.show();
 		terminal.sendText("cp set_sim_top.tcl current.tcl");
 		terminal.sendText(`sed -i 's/$PROJECT_NAME/${folderName}/g' current.tcl`);
-		terminal.sendText(`sed -i 's/$MODULE_NAME/${moduleName}/g' current.tcl`);
+		terminal.sendText(`sed -i 's/$MODULE_NAME/${simModuleName}/g' current.tcl`);
 		terminal.sendText("cat current.tcl");
 		terminal.sendText(vivado);
 		terminal.sendText(rm);
-		vscode.window.showInformationMessage(`Setting ${moduleName} as top`);
+		vscode.window.showInformationMessage(`Setting ${simModuleName} as top`);
 	}));
 
 	context.subscriptions.push(vscode.commands.registerCommand('viv.simulation', async () => {
 		let folderName = vscode.workspace.name;
-		let moduleName = await vscode.window.showInputBox({prompt: "Simulation module name"});
+		simModuleName = await vscode.window.showInputBox({ prompt: "Simulation module name", placeHolder: simModuleName }) || '';
+
+		if (simModuleName === '') { return; }
 
 		ensureInit();
 
 		terminal.show();
 		terminal.sendText("cp simulation.tcl current.tcl");
 		terminal.sendText(`sed -i 's/$PROJECT_NAME/${folderName}/g' current.tcl`);
-		terminal.sendText(`sed -i 's/$MODULE_NAME/${moduleName}/g' current.tcl`);
+		terminal.sendText(`sed -i 's/$MODULE_NAME/${simModuleName}/g' current.tcl`);
 		terminal.sendText("cat current.tcl");
 		terminal.sendText(vivado);
 		terminal.sendText(rm);
 
 		terminal.sendText("cp xsim.sh current.sh");
 		terminal.sendText(`sed -i 's/$PROJECT_NAME/${folderName}/g' current.sh`);
-		terminal.sendText(`sed -i 's/$MODULE_NAME/${moduleName}/g' current.sh`);
+		terminal.sendText(`sed -i 's/$MODULE_NAME/${simModuleName}/g' current.sh`);
 		terminal.sendText("zsh current.sh");
 		terminal.sendText("rm current.sh");
 
@@ -147,14 +164,16 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(vscode.commands.registerCommand('viv.bitstream', async () => {
 		let folderName = vscode.workspace.name;
-		let moduleName = await vscode.window.showInputBox({prompt: "Design module name"});
+		designModuleName = await vscode.window.showInputBox({ prompt: "Design module name", placeHolder: designModuleName }) || '';
+
+		if (designModuleName === '') { return; }
 
 		ensureInit();
 
 		terminal.show();
 		terminal.sendText("cp bitstream.tcl current.tcl");
 		terminal.sendText(`sed -i 's/$PROJECT_NAME/${folderName}/g' current.tcl`);
-		terminal.sendText(`sed -i 's/$MODULE_NAME/${moduleName}/g' current.tcl`);
+		terminal.sendText(`sed -i 's/$MODULE_NAME/${designModuleName}/g' current.tcl`);
 		terminal.sendText("cat current.tcl");
 		terminal.sendText(vivado);
 		terminal.sendText(rm);
@@ -164,14 +183,16 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(vscode.commands.registerCommand('viv.program', async () => {
 		let folderName = vscode.workspace.name;
-		let moduleName = await vscode.window.showInputBox({prompt: "Design module name"});
+		designModuleName = await vscode.window.showInputBox({ prompt: "Design module name", placeHolder: designModuleName }) || '';
+
+		if (designModuleName === '') { return; }
 
 		ensureInit();
 
 		terminal.show();
 		terminal.sendText("cp program.tcl current.tcl");
 		terminal.sendText(`sed -i 's/$PROJECT_NAME/${folderName}/g' current.tcl`);
-		terminal.sendText(`sed -i 's/$MODULE_NAME/${moduleName}/g' current.tcl`);
+		terminal.sendText(`sed -i 's/$MODULE_NAME/${designModuleName}/g' current.tcl`);
 		terminal.sendText("cat current.tcl");
 		terminal.sendText(vivado);
 		terminal.sendText(rm);
@@ -181,7 +202,7 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }
 
 function initialize() {
 	terminal = vscode.window.createTerminal("viv");
